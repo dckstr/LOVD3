@@ -4,7 +4,7 @@
  * LEIDEN OPEN VARIATION DATABASE (LOVD)
  *
  * Created     : 2012-03-27
- * Modified    : 2016-08-29
+ * Modified    : 2016-09-21
  * For LOVD    : 3.0-17
  *
  * Copyright   : 2004-2016 Leiden University Medical Center; http://www.LUMC.nl/
@@ -610,7 +610,7 @@ foreach ($zAnnouncements as $zAnnouncement) {
               '      <IMG src="' . $_CONF['logo_uri'] . '" alt="LOVD - Leiden Open Variation Database" ' . $sSize . '>' . "\n" .
               '    </TD>' . "\n");
 
-        print('    <TD valign="top" style="padding-top : 2px;">' . "\n" .
+        print('    <TD valign="top" style="padding-top : 2px; white-space: nowrap;">' . "\n" .
               '      <H2 style="margin-bottom : 2px;">' . $_CONF['system_title'] . '</H2>');
 
         if ($sCurrSymbol && $sCurrGene) {
@@ -627,7 +627,8 @@ foreach ($zAnnouncements as $zAnnouncement) {
         // This is done with function lovd_switchGene().
         print('      <H5 id="gene_switcher"></H5>' . "\n" .
               '    </TD>' . "\n" .
-              '    <TD valign="top" align="right" style="padding-right : 5px; padding-top : 2px;">' . "\n" .
+              '    <TD style="padding-left: 10px; padding-top: 2px;"><A TITLE="Powered by Interactive Biosoftware" HREF="http://www.interactive-biosoftware.com/"><IMG SRC="http://uat.lovd.nl/temporary_files/logo_IB.png"></A></TD>' . "\n" .
+              '    <TD valign="top" align="right" style="padding-right : 5px; padding-top : 2px; width: 100%">' . "\n" .
               '      LOVD v.' . $_STAT['tree'] . ' Build ' . $_STAT['build'] .
               (!defined('NOT_INSTALLED')? ' [ <A href="status">Current LOVD status</A> ]' : '') .
               '<BR>' . "\n");
