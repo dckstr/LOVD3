@@ -4,7 +4,7 @@
  * LEIDEN OPEN VARIATION DATABASE (LOVD)
  *
  * Created     : 2016-09-07
- * Modified    : 2016-09-22
+ * Modified    : 2016-09-29
  * For LOVD    : 3.0-17
  *
  * Copyright   : 2016 Leiden University Medical Center; http://www.LUMC.nl/
@@ -54,6 +54,7 @@ class FindReplaceTest extends LOVDSeleniumWebdriverBaseTestCase
         $this->openFRMenuForCol(6);
 
         // Click cancel button.
+        sleep(1);
         $cancelButton = $this->driver->findElement(WebDriverBy::id('FRCancel_VOG'));
         $cancelButton->click();
 
@@ -64,7 +65,7 @@ class FindReplaceTest extends LOVDSeleniumWebdriverBaseTestCase
         // Open find and replace for Reference col.
         $this->openFRMenuForCol(6);
 
-        $columnReference = $this->driver->findElement(WebDriverBy::id('viewlistFRColDisplay_VOG'));
+        $columnReference = $this->findRefreshingElement(WebDriverBy::id('viewlistFRColDisplay_VOG'));
         $this->assertEquals($columnReference->getText(), 'Reference');
 
         $this->enterValue(WebDriverBy::name('FRReplace_VOG'), 'newvalue');
@@ -177,11 +178,11 @@ class FindReplaceTest extends LOVDSeleniumWebdriverBaseTestCase
         // Open the find & replace menu for the specified column index
         // (numbered 1..n from left to right)
 
-        $gearOptionsLink = $this->driver->findElement(
+        $gearOptionsLink = $this->findRefreshingElement(
                 WebDriverBy::id('viewlistOptionsButton_VOG'));
         $gearOptionsLink->click();
 
-        $FRMenuItem = $this->driver->findElement(
+        $FRMenuItem = $this->findRefreshingElement(
                 WebDriverBy::partialLinkText('Find and replace text in column'));
         $FRMenuItem->click();
 
@@ -191,8 +192,11 @@ class FindReplaceTest extends LOVDSeleniumWebdriverBaseTestCase
             $aOverlays = $driver->findElements(WebDriverBy::xpath('//div[@class="vl_overlay"]'));
             return count($aOverlays) >= $nCol;
         });
-        $columnOverlay = $this->driver->findElement(
+        $columnOverlay = $this->findRefreshingElement(
                 WebDriverBy::xpath('//div[@class="vl_overlay"][' . $nCol . ']'));
         $columnOverlay->click();
+
+        // Wait a second to handle click event properly and let tooltip disaapear.
+        sleep(1);
     }
 }

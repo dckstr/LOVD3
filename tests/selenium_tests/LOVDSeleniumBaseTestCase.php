@@ -4,7 +4,7 @@
  * LEIDEN OPEN VARIATION DATABASE (LOVD)
  *
  * Created     : 2016-03-02
- * Modified    : 2016-09-06
+ * Modified    : 2016-09-29
  * For LOVD    : 3.0-17
  *
  * Copyright   : 2016 Leiden University Medical Center; http://www.LUMC.nl/
@@ -30,7 +30,9 @@
 
 
 require_once 'inc-lib-test.php';
+require_once 'RefreshingWebDriverElement.php';
 
+use \Facebook\WebDriver\WebDriverBy;
 use \Facebook\WebDriver\WebDriverExpectedCondition;
 use \Facebook\WebDriver\Exception\NoSuchElementException;
 use \Facebook\WebDriver\Exception\WebDriverException;
@@ -65,7 +67,7 @@ abstract class LOVDSeleniumWebdriverBaseTestCase extends PHPUnit_Framework_TestC
     {
         // Convenience function to let the webdriver type text $text in an
         // element specified by $locator.
-        $element = $this->driver->findElement($locator);
+        $element = $this->findRefreshingElement($locator);
 
         if ($element->getAttribute('type') == 'file') {
             // Separate handling of file input elements, as they need a file
@@ -161,6 +163,9 @@ abstract class LOVDSeleniumWebdriverBaseTestCase extends PHPUnit_Framework_TestC
     {
         // Remove attribute in current DOM. For element $element, remove
         // attribute with name $attrName.
+        if ($element instanceof RefreshingWebElement) {
+            $element = $element->getWebElement();
+        }
         $this->driver->executeScript('arguments[0].removeAttribute(arguments[1]);',
                                      array($element, $attrName));
     }
@@ -179,5 +184,13 @@ abstract class LOVDSeleniumWebdriverBaseTestCase extends PHPUnit_Framework_TestC
                 throw $e;
             }
         }
+    }
+
+
+    protected function findRefreshingElement(WebDriverBy $locator) {
+        // Return a web element located by $locator that refreshes
+        // automatically if its reference has gone stale. Which is a problem
+        // when the DOM changes.
+        return new RefreshingWebElement($this->driver, $locator);
     }
 }
