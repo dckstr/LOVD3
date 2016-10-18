@@ -627,7 +627,9 @@ foreach ($zAnnouncements as $zAnnouncement) {
         // This is done with function lovd_switchGene().
         print('      <H5 id="gene_switcher"></H5>' . "\n" .
               '    </TD>' . "\n" .
-              '    <TD style="padding-left: 10px; padding-top: 2px;"><A TITLE="Powered by Interactive Biosoftware" HREF="http://www.interactive-biosoftware.com/"><IMG SRC="http://uat.lovd.nl/temporary_files/logo_IB.png"></A></TD>' . "\n" .
+              '    <TD style="padding-left: 30px; padding-top: 2px;">' . "\n" .
+              '    <SPAN style="white-space: nowrap"><B><I>LOVD is currently supported by:</I></B></SPAN>' . "\n" .
+              '    <A TITLE="LOVD gratefully acknowledges the support we receive from Interactive Biosoftware." HREF="http://www.interactive-biosoftware.com/"><IMG SRC="http://uat.lovd.nl/temporary_files/logo_IB.png" style="max-height: 50px; width: auto;"></A></TD>' . "\n" .
               '    <TD valign="top" align="right" style="padding-right : 5px; padding-top : 2px; width: 100%">' . "\n" .
               '      LOVD v.' . $_STAT['tree'] . ' Build ' . $_STAT['build'] .
               (!defined('NOT_INSTALLED')? ' [ <A href="status">Current LOVD status</A> ]' : '') .
